@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\App-Hexagonal.Domain\App-Hexagonal.Domain.csproj" />
+    <ProjectReference Include="..\App-Hexagonal.Application\App-Hexagonal.Application.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>App_Hexagonal.Infrastructura</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>b72f5840-52ee-4965-a10e-1e74e3faca52</UserSecretsId>
+  </PropertyGroup>
+
+</Project>
