@@ -1,8 +1,8 @@
 using App_Hexagonal.Domain.student.model;
-using App_Hexagonal.Infrastructura.student.ports.output.persistence.entity;
+using App_Hexagonal.Infrastructura.student.persistence.entity;
 using Mapster;
 
-namespace App_Hexagonal.Infrastructura.student.ports.output.persistence.mapping
+namespace App_Hexagonal.Infrastructura.student.persistence.mapping
 {
     public static class StudentMappingConfig
     {

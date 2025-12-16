@@ -1,10 +1,10 @@
+using App_Hexagonal.Api.student.Dtos.request;
+using App_Hexagonal.Api.student.mapping;
 using App_Hexagonal.Application.student.ports.input;
-using App_Hexagonal.Domain.student.model;
-using App_Hexagonal.Infrastructura.student.ports.input.rest.mapping;
-using App_Hexagonal.Infrastructura.student.ports.input.rest.model.request;
+using App_Hexagonal.student.Dtos.response;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App_Hexagonal.Api.student
+namespace App_Hexagonal.Api.Controller
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -31,14 +31,14 @@ namespace App_Hexagonal.Api.student
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<Student>>> GetAll()
+        public async Task<ActionResult<List<StudentResponse>>> GetAll()
         {
             var students = await _studentService.findAll();
             return Ok(students);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetById(long id)
+        public async Task<ActionResult<StudentResponse>> GetById(long id)
         {
             var student = await _studentService.findById(id);
             if (student == null)

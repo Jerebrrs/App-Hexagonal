@@ -1,6 +1,6 @@
 
 
-namespace App_Hexagonal.Infrastructura.student.ports.input.rest.model.response
+namespace App_Hexagonal.student.Dtos.response
 {
     public class StudentResponse
     {

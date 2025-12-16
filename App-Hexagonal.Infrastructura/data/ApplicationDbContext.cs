@@ -1,5 +1,5 @@
 
-using App_Hexagonal.Infrastructura.student.ports.output.persistence.entity;
+using App_Hexagonal.Infrastructura.student.persistence.entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

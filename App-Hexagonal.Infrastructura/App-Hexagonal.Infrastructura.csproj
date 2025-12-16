@@ -17,6 +17,10 @@
      </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="student/ports/output/" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>App_Hexagonal.Infrastructura</RootNamespace>

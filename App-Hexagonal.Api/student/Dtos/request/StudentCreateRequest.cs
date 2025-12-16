@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace App_Hexagonal.Infrastructura.student.ports.input.rest.model.request
+namespace App_Hexagonal.Api.student.Dtos.request
+
 {
     public class StudentCreateRequest
     {

@@ -1,11 +1,12 @@
 using App_Hexagonal.Application.student.ports.output;
+using App_Hexagonal.Domain.student.exception;
 using App_Hexagonal.Domain.student.model;
 using App_Hexagonal.Infrastructura.data;
-using App_Hexagonal.Infrastructura.student.ports.output.persistence.entity;
+using App_Hexagonal.Infrastructura.student.persistence.entity;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-namespace App_Hexagonal.Infrastructura.student.ports.output.persistence.repository
+namespace App_Hexagonal.Infrastructura.student.persistence.repository
 {
     public class StudentRepository : IStudentPersistePort
     {
@@ -19,7 +20,7 @@ namespace App_Hexagonal.Infrastructura.student.ports.output.persistence.reposito
         public async Task<Student> findById(long id)
         {
             var entity = await _context.Students.FindAsync(id);
-            return entity == null ? null : entity.Adapt<Student>();
+            return entity == null ? throw new StudentNotFountException() : entity.Adapt<Student>();
         }
 
         public async Task<List<Student>> findAll()
@@ -34,16 +35,14 @@ namespace App_Hexagonal.Infrastructura.student.ports.output.persistence.reposito
             _context.Students.Add(entity);
             await _context.SaveChangesAsync();
         }
-
         public async Task<Student> update(long id, Student student)
         {
             var entity = await _context.Students.FindAsync(id);
-            if (entity == null) return null;
-            student.Adapt(entity); // Mapster actualiza la entidad existente
+            if (entity == null) throw new StudentNotFountException();
+            student.Adapt(entity);
             await _context.SaveChangesAsync();
             return entity.Adapt<Student>();
         }
-
         public async Task deleteById(long id)
         {
             var entity = await _context.Students.FindAsync(id);

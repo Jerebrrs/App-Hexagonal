@@ -23,7 +23,6 @@ namespace App_Hexagonal.Application.student.service
 
         public async Task<List<Student>> findAll()
         {
-
             return await _studentPersistePort.findAll();
         }
 

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace App_Hexagonal.Infrastructura.student.ports.output.persistence.entity
+namespace App_Hexagonal.Infrastructura.student.persistence.entity
 {
     [Table("Students")]
     public class StudentEntity

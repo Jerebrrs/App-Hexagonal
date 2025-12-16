@@ -8,13 +8,40 @@ services:
       - SA_PASSWORD=YourStrong!Passw0rd
     ports:
       - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
     networks:
       - hexagonal-net
     healthcheck:
-      test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -Q 'SELECT 1' || exit 1"]
+      test: >
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -Q "SELECT 1"
       interval: 10s
       timeout: 5s
       retries: 5
+
+sqlserver-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-init
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    volumes:
+      - ./docker/sqlserver/init.sql:/init.sql
+    command: >
+      /bin/bash -c "
+      /opt/mssql-tools/bin/sqlcmd
+      -S sqlserver
+      -U sa
+      -P YourStrong!Passw0rd
+      -i /init.sql
+      "
+    networks:
+      - hexagonal-net
+    restart: "no"
+
 networks:
   hexagonal-net:
     driver: bridge
+
+volumes:
+  sqlserver_data:

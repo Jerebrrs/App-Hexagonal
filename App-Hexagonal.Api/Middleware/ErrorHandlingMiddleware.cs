@@ -1,5 +1,4 @@
 using App_Hexagonal.Domain.Error;
-using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Text.Json;
 

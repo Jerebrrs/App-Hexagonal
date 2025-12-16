@@ -1,16 +1,15 @@
+using App_Hexagonal.Api.student.Dtos.request;
 using App_Hexagonal.Domain.student.model;
-using App_Hexagonal.Infrastructura.student.ports.input.rest.model.request;
-using Mapster;
 
-namespace App_Hexagonal.Infrastructura.student.ports.input.rest.mapping
+namespace App_Hexagonal.Api.student.mapping
 {
     public static class StudentRestMapping
     {
         public static Student ToDomain(this StudentCreateRequest request)
         {
-            // Si necesitas lógica personalizada, puedes mapear manualmente aquí
+
             return new Student(
-                0, // El id se genera en persistencia
+                0,
                 request.FileName,
                 request.LastName,
                 request.Age,
