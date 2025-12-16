@@ -5,6 +5,22 @@
     <ProjectReference Include="..\App-Hexagonal.Application\App-Hexagonal.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.17" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.17" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.17" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.17">
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+       <PrivateAssets>all</PrivateAssets>
+     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="student/ports/output/" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>App_Hexagonal.Infrastructura</RootNamespace>

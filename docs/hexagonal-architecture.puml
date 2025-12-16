@@ -1,0 +1,36 @@
+@startuml
+package "App-Hexagonal.Api" {
+  class StudentController
+}
+
+package "App-Hexagonal.Application" {
+  interface IStudentServicePort
+  class StudentService
+  interface IStudentPersistePort
+}
+
+package "App-Hexagonal.Domain" {
+  class Student
+  class StudentNotFoundException
+}
+
+package "App-Hexagonal.Infrastructura" {
+  class StudentRepository
+  class StudentRestMapping
+  class StudentCreateRequest
+  class AppDbContext
+  class StudentEntity
+}
+
+StudentController --> IStudentServicePort
+IStudentServicePort <|.. StudentService
+StudentService --> IStudentPersistePort
+IStudentPersistePort <|.. StudentRepository
+StudentRepository --> AppDbContext
+StudentRestMapping --> Student
+StudentCreateRequest --> StudentRestMapping
+AppDbContext --> StudentEntity
+StudentService --> Student
+StudentNotFoundException ..> Student
+
+@enduml
