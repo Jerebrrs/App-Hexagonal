@@ -1,4 +1,5 @@
-using App_Hexagonal.Application.Contracts.Ports.In;
+
+using App_Hexagonal.Application.Contract.Ports.In;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App_Hexagonal.Api.Contract

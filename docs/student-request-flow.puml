@@ -1,0 +1,15 @@
+@startuml
+actor Cliente
+
+Cliente -> StudentController : POST /students
+StudentController -> StudentCreateRequest : Recibe JSON
+StudentCreateRequest -> StudentRestMapping : ToDomain()
+StudentRestMapping -> Student : Crea entidad de dominio
+StudentController -> IStudentServicePort : save(Student)
+IStudentServicePort -> StudentService : save(Student)
+StudentService -> IStudentPersistePort : save(Student)
+IStudentPersistePort -> StudentRepository : save(Student)
+StudentRepository -> AppDbContext : Add(StudentEntity)
+AppDbContext -> StudentEntity : Mapea y persiste
+
+@enduml

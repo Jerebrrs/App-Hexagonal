@@ -1,4 +1,4 @@
-using App_Hexagonal.Application.Contracts.Ports.Out;
+using App_Hexagonal.Application.Contract.Ports.Out;
 
 
 namespace App_Hexagonal.Infrastructura.Contract
