@@ -1,6 +1,8 @@
 using App_Hexagonal.Api.student.Dtos.request;
 using App_Hexagonal.Api.student.mapping;
-using App_Hexagonal.Application.student.ports.input;
+using App_Hexagonal.Application.student.query;
+using App_Hexagonal.Application.student.useCase;
+using App_Hexagonal.Application.student.useCase.command;
 using App_Hexagonal.student.Dtos.response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,59 +12,71 @@ namespace App_Hexagonal.Api.Controller
     [Route("api/[controller]")]
     public class StudentController : ControllerBase
     {
-        private readonly IStudentServicePort _studentService;
+        private readonly CreateStudentUseCase _createStudent;
+        private readonly GetAllStudentsUseCase _getAllStudents;
+        private readonly GetStudentByIdUseCase _getStudentById;
+        private readonly UpdateStudentUseCase _updateStudent;
+        private readonly DeleteStudentUseCase _deleteStudent;
 
-        public StudentController(IStudentServicePort studentService)
+        public StudentController(
+             CreateStudentUseCase createStudent,
+             GetAllStudentsUseCase getAllStudents,
+             GetStudentByIdUseCase getStudentById,
+             UpdateStudentUseCase updateStudent,
+             DeleteStudentUseCase deleteStudent)
         {
-            _studentService = studentService;
+            _createStudent = createStudent;
+            _getAllStudents = getAllStudents;
+            _getStudentById = getStudentById;
+            _updateStudent = updateStudent;
+            _deleteStudent = deleteStudent;
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create([FromBody] StudentCreateRequest request)
         {
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var student = request.ToDomain();
-            await _studentService.save(student);
-            return Ok();
+            var student = await _createStudent.ExecuteAsync(request.ToCommand());
+            var response = student.ToResponse();
+
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = student.Id },
+                response
+            );
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<StudentResponse>>> GetAll()
+        public async Task<ActionResult<IEnumerable<StudentResponse>>> GetAll()
         {
-            var students = await _studentService.findAll();
-            return Ok(students);
+            var result = await _getAllStudents.ExecuteAsync(new GetAllStudentsQuery());
+            return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<StudentResponse>> GetById(long id)
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<StudentResponse>> GetById(Guid id)
         {
-            var student = await _studentService.findById(id);
-            if (student == null)
-                return NotFound();
-            return Ok(student);
+            var result = await _getStudentById.ExecuteAsync(new GetStudentByIdQuery(id));
+            return Ok(result);
         }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, [FromBody] StudentCreateRequest request)
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] StudentCreateRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var student = request.ToDomain();
-            var updated = await _studentService.update(id, student);
-            if (updated == null)
-                return NotFound();
-            return Ok(updated);
+            await _updateStudent.ExecuteAsync(request.ToCommand(id));
+            return NoContent();
         }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            await _studentService.deleteById(id);
+            await _deleteStudent.ExecuteAsync(new DeleteStudentCommand(id));
             return NoContent();
         }
     }

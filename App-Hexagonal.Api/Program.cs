@@ -1,11 +1,9 @@
 using App_Hexagonal.Api.Middleware;
-using App_Hexagonal.Infrastructura.student.ports.output.persistence.mapping;
+using App_Hexagonal.Infrastructura.student.persistence.mapping;
 using Microsoft.EntityFrameworkCore;
 using App_Hexagonal.Infrastructura.data;
-using App_Hexagonal.Application.student.ports.output;
-using App_Hexagonal.Application.student.ports.input;
-using App_Hexagonal.Infrastructura.student.ports.output.persistence.repository;
-using App_Hexagonal.Application.student.service;
+using App_Hexagonal.Infrastructura;
+using App_Hexagonal.Application;
 
 StudentMappingConfig.Register();
 
@@ -22,8 +20,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IStudentPersistePort, StudentRepository>();
-builder.Services.AddScoped<IStudentServicePort, StudentService>();
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
+
 
 
 var app = builder.Build();
