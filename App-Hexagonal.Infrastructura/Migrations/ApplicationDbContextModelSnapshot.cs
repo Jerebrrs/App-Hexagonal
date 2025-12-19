@@ -22,13 +22,11 @@ namespace App_Hexagonal.Infrastructura.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("App_Hexagonal.Infrastructura.student.ports.output.persistence.entity.StudentEntity", b =>
+            modelBuilder.Entity("App_Hexagonal.Infrastructura.student.persistence.entity.StudentEntity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Adress")
                         .IsRequired()

@@ -1,17 +1,40 @@
 
+using App_Hexagonal.Domain.Common;
+
 namespace App_Hexagonal.Domain.student.model
 {
-    public class Student
+    public class Student : BaseEntity
     {
-        public long Id { get; set; }
-        public string FileName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public int Age { get; set; }
-        public string Adress { get; set; } = string.Empty;
-        public Student() { }
-        public Student(long id, string filename, string lastname, int age, string adress)
+        public string FileName { get; private set; } = string.Empty;
+        public string LastName { get; private set; } = string.Empty;
+        public int Age { get; private set; }
+        public string Adress { get; private set; } = string.Empty;
+        public Student()
         {
-            this.Id = id;
+
+        }
+        public Student(string filename, string lastname, int age, string adress)
+         : base(Guid.NewGuid())
+        {
+            FileName = filename;
+            LastName = lastname;
+            Age = age;
+            Adress = adress;
+        }
+
+        // // 👉 Constructor para rehidratación (DB)
+        // public Student(string filename, string lastname, int age, string adress)
+        //     : base()
+        // {
+        //     FileName = filename;
+        //     LastName = lastname;
+        //     Age = age;
+        //     Adress = adress;
+        // }
+
+        public void Update(string filename, string lastname, int age, string adress)
+        {
+
             this.FileName = filename;
             this.LastName = lastname;
             this.Age = age;

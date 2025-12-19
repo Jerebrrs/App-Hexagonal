@@ -19,29 +19,3 @@ services:
       timeout: 5s
       retries: 5
 
-sqlserver-init:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver-init
-    depends_on:
-      sqlserver:
-        condition: service_healthy
-    volumes:
-      - ./docker/sqlserver/init.sql:/init.sql
-    command: >
-      /bin/bash -c "
-      /opt/mssql-tools/bin/sqlcmd
-      -S sqlserver
-      -U sa
-      -P YourStrong!Passw0rd
-      -i /init.sql
-      "
-    networks:
-      - hexagonal-net
-    restart: "no"
-
-networks:
-  hexagonal-net:
-    driver: bridge
-
-volumes:
-  sqlserver_data:

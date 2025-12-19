@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App_Hexagonal.Infrastructura.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251216040536_CreateStudentsTable")]
-    partial class CreateStudentsTable
+    [Migration("20251218233355_cambioStudentid")]
+    partial class cambioStudentid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,11 @@ namespace App_Hexagonal.Infrastructura.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("App_Hexagonal.Infrastructura.student.ports.output.persistence.entity.StudentEntity", b =>
+            modelBuilder.Entity("App_Hexagonal.Infrastructura.student.persistence.entity.StudentEntity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Adress")
                         .IsRequired()
