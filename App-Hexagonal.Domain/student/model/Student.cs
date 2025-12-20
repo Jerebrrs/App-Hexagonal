@@ -22,16 +22,6 @@ namespace App_Hexagonal.Domain.student.model
             Adress = adress;
         }
 
-        // // 👉 Constructor para rehidratación (DB)
-        // public Student(string filename, string lastname, int age, string adress)
-        //     : base()
-        // {
-        //     FileName = filename;
-        //     LastName = lastname;
-        //     Age = age;
-        //     Adress = adress;
-        // }
-
         public void Update(string filename, string lastname, int age, string adress)
         {
 
