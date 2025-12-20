@@ -14,7 +14,7 @@
 │   │   └── student/
 │   │       ├── ports/
 │   │       │   ├── input/
-│   │       │   │   └── IStudentServicePort.cs
+│   │       │   │   └── IStudentServicePort.cs      
 │   │       │   └── output/
 │   │       │       └── IStudentPersistencePort.cs
 │   │       └── service/
