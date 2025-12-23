@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using App_Hexagonal.Infrastructura.data;
 using App_Hexagonal.Infrastructura;
 using App_Hexagonal.Application;
+using App_Hexagonal.Infrastructura.identity.entity;
+using Microsoft.AspNetCore.Identity;
+using App_Hexagonal.Infrastructura.identity.config;
 
 StudentMappingConfig.Register();
 
@@ -20,9 +23,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Capas
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
 
+
+// Identity 
+builder.Services.AddIdentityConfiguration();
 
 
 var app = builder.Build();

@@ -20,6 +20,7 @@ namespace App_Hexagonal.Domain.student.model
             LastName = lastname;
             Age = age;
             Adress = adress;
+            MarkCreated();
         }
 
         public void Update(string filename, string lastname, int age, string adress)
@@ -29,6 +30,7 @@ namespace App_Hexagonal.Domain.student.model
             this.LastName = lastname;
             this.Age = age;
             this.Adress = adress;
+            MarkUpdated();
         }
     }
 }

@@ -1,0 +1,13 @@
+
+namespace App_Hexagonal.Application.user.ports.output
+{
+    public interface IUserIdentityPort
+    {
+        Task<Guid> CreateAsync(
+         Guid tenantId,
+         string email,
+         string userName,
+         string password
+     );
+    }
+}

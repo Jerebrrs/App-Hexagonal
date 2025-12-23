@@ -4,7 +4,7 @@ namespace App_Hexagonal.Application.tenant.ports.output
 {
     public interface ITenantRepository
     {
-        Task<Tenant?> GetByIdAsync();
+        Task<Tenant?> GetByIdAsync(Guid id);
         Task AddAsync(Tenant tenant);
     }
 }
