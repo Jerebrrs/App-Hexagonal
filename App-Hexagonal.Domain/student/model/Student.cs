@@ -3,7 +3,7 @@ using App_Hexagonal.Domain.Common;
 
 namespace App_Hexagonal.Domain.student.model
 {
-    public class Student : BaseEntity
+    public class Student : BaseEntity<Guid>
     {
         public string FileName { get; private set; } = string.Empty;
         public string LastName { get; private set; } = string.Empty;
