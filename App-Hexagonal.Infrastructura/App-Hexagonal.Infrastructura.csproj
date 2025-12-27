@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="student/ports/output/" />
-    <Folder Include="tenant/ports/" />
     <Folder Include="user/" />
   </ItemGroup>
 

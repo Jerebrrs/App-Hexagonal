@@ -1,6 +1,7 @@
 using System;
 using App_Hexagonal.Application.student.useCase;
 using App_Hexagonal.Application.tenant.useCase;
+using App_Hexagonal.Application.user.useCase;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -19,6 +20,10 @@ public static class DependencyInjection
 
         services.AddScoped<CreateTenantUseCase>();
 
+
+        services.AddScoped<CreateUserUseCase>();
+
+        services.AddScoped<RegisterTenantUseCase>();
 
 
         // Contracts (ejemplo)

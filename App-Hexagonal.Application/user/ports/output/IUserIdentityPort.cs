@@ -7,7 +7,7 @@ namespace App_Hexagonal.Application.user.ports.output
          Guid tenantId,
          string email,
          string userName,
-         string password
+         string password, string role
      );
     }
 }
