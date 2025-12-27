@@ -8,10 +8,6 @@ namespace App_Hexagonal.Infrastructura.identity.adapter;
 public class IdentityUserAdapter : IUserIdentityPort
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    // public IdentityUserAdapter(UserManager<ApplicationUser> userManager)
-    // {
-    //     _userManager = userManager;
-    // }
     private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
     public IdentityUserAdapter(
@@ -22,30 +18,12 @@ public class IdentityUserAdapter : IUserIdentityPort
         _roleManager = roleManager;
     }
 
-    // public async Task<Guid> CreateAsync(Guid tenantId, string email, string userName, string password)
-    // {
-    //     var user = new ApplicationUser { Id = Guid.NewGuid(), TenantId = tenantId, Email = email, UserName = userName };
-    //     var result = await _userManager.CreateAsync(user, password);
-    //     if (!result.Succeeded)
-    //     {
-    //         throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
-
-    //     }
-    //     return user.Id;
-    // }
-
-    // public Task<Guid> CreateAsync(Guid tenantId, string email, string userName, string password, string role)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-
     public async Task<Guid> CreateAsync(
     Guid tenantId,
     string email,
     string userName,
     string password,
-    string role)
+    string roles)
     {
         var user = new ApplicationUser
         {
@@ -64,14 +42,32 @@ public class IdentityUserAdapter : IUserIdentityPort
             );
 
         // Crear rol si no existe
-        if (!await _roleManager.RoleExistsAsync(role))
+        if (!await _roleManager.RoleExistsAsync(roles))
         {
-            await _roleManager.CreateAsync(new IdentityRole<Guid>(role));
+            await _roleManager.CreateAsync(new IdentityRole<Guid>(roles));
         }
 
-        await _userManager.AddToRoleAsync(user, role);
+        await _userManager.AddToRoleAsync(user, roles);
 
         return user.Id;
     }
 
+    public async Task<UserAuthInfo> ValidateCredentialsAsync(string email, string password)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user is null) return null;
+
+        var valid = await _userManager.CheckPasswordAsync(user, password);
+
+        if (!valid) return null;
+
+        var roles = await _userManager.GetRolesAsync(user);
+
+        return new UserAuthInfo(
+            user.Id,
+            user.TenantId,
+            user.Email!,
+            roles.AsReadOnly()
+        );
+    }
 }

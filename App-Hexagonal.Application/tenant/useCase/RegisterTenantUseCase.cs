@@ -21,7 +21,7 @@ public class RegisterTenantUseCase : IUseCase<RegisterTenantCommand, Tenant>
         var tenant = new Tenant(Guid.NewGuid(), request.TenantName);
         await _tenantRepository.AddAsync(tenant);
 
-        await _userRepository.CreateAsync(tenant.Id, request.AdminEmail, request.AdminUserName, request.Password, role: "Admin");
+        await _userRepository.CreateAsync(tenant.Id, request.AdminEmail, request.AdminUserName, request.Password, roles: "Admin");
 
         return tenant;
     }

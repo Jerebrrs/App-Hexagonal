@@ -24,7 +24,7 @@ public static class DependencyInjection
         services.AddScoped<CreateUserUseCase>();
 
         services.AddScoped<RegisterTenantUseCase>();
-
+        services.AddScoped<LoginUserUseCase>();
 
         // Contracts (ejemplo)
         // services.AddScoped<CreateContractUseCase>();

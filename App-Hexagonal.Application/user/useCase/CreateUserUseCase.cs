@@ -19,7 +19,7 @@ public class CreateUserUseCase : IUseCase<CreateUserCommand, User>
             request.TenantId,
             request.email,
             request.userName,
-            request.password, role: "Admin"
+            request.password, roles: "Admin"
         );
         return new User(
                     userId,

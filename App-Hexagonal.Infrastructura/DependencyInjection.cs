@@ -2,6 +2,7 @@ using System;
 using App_Hexagonal.Application.student.ports;
 using App_Hexagonal.Application.tenant.ports.output;
 using App_Hexagonal.Application.user.ports.output;
+using App_Hexagonal.Infrastructura.auth.adapter;
 using App_Hexagonal.Infrastructura.identity.adapter;
 using App_Hexagonal.Infrastructura.student.persistence.repository;
 using App_Hexagonal.Infrastructura.tenant.persistence.repository;
@@ -20,18 +21,7 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthUserPort, IdentityAuthUserAdapter>();
 
-
-
-
-
-
-
-
-
-
-
-
-
+        services.AddScoped<IAuthTokenPort, JwtTokenAdapter>();
         return services;
     }
 }
