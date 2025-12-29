@@ -1,3 +1,4 @@
+using App_Hexagonal.Application.Common.tenant;
 using App_Hexagonal.Application.student.ports;
 using App_Hexagonal.Domain.student.exception;
 using App_Hexagonal.Domain.student.model;
@@ -11,10 +12,12 @@ namespace App_Hexagonal.Infrastructura.student.persistence.repository
     public class StudentRepository : IStudentPersistePort
     {
         private readonly ApplicationDbContext _context;
+        private readonly ITenantContext _tenantContext;
 
-        public StudentRepository(ApplicationDbContext context)
+        public StudentRepository(ApplicationDbContext context, ITenantContext tenantContext)
         {
             _context = context;
+            _tenantContext = tenantContext;
         }
 
         public async Task AddAsync(Student student)
@@ -39,6 +42,10 @@ namespace App_Hexagonal.Infrastructura.student.persistence.repository
         {
             var entities = await _context.Students.ToListAsync();
             return entities.Adapt<List<Student>>();
+            //Esto es cuando tenga tenantId en cada modelo
+            // return await _context.Students
+            // .Where(s => s.TenantId == _tenantContext.TenantId)
+            // .ToListAsync();
         }
 
         public async Task<Student?> GetByIdAsync(Guid id)

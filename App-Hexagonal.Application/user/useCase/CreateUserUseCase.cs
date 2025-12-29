@@ -1,3 +1,4 @@
+using App_Hexagonal.Application.Common.security;
 using App_Hexagonal.Application.Common.UseCase;
 using App_Hexagonal.Application.user.ports.output;
 using App_Hexagonal.Application.user.useCase.command;
@@ -19,7 +20,7 @@ public class CreateUserUseCase : IUseCase<CreateUserCommand, User>
             request.TenantId,
             request.email,
             request.userName,
-            request.password, roles: "Admin"
+            request.password, roles: Roles.Admin
         );
         return new User(
                     userId,

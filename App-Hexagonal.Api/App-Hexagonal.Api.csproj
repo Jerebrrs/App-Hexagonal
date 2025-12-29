@@ -21,4 +21,8 @@
     <ProjectReference Include="..\App-Hexagonal.Infrastructura\App-Hexagonal.Infrastructura.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common/" />
+  </ItemGroup>
+
 </Project>

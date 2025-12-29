@@ -1,3 +1,4 @@
+using App_Hexagonal.Application.Common.security;
 using App_Hexagonal.Application.Common.UseCase;
 using App_Hexagonal.Application.tenant.ports.output;
 using App_Hexagonal.Application.tenant.useCase.command;
@@ -21,7 +22,7 @@ public class RegisterTenantUseCase : IUseCase<RegisterTenantCommand, Tenant>
         var tenant = new Tenant(Guid.NewGuid(), request.TenantName);
         await _tenantRepository.AddAsync(tenant);
 
-        await _userRepository.CreateAsync(tenant.Id, request.AdminEmail, request.AdminUserName, request.Password, roles: "Admin");
+        await _userRepository.CreateAsync(tenant.Id, request.AdminEmail, request.AdminUserName, request.Password, roles: Roles.Admin);
 
         return tenant;
     }

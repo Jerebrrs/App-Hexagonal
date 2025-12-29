@@ -1,6 +1,8 @@
 using App_Hexagonal.Api.user.Dtos.request;
+using App_Hexagonal.Application.Common.security;
 using App_Hexagonal.Application.user.useCase;
 using App_Hexagonal.Application.user.useCase.command;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +18,7 @@ namespace App_Hexagonal.Api.Controller
             _createUser = createUser;
         }
 
+        [Authorize(Policy = Policies.TenantAdmin)]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
         {

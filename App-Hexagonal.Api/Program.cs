@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using App_Hexagonal.Infrastructura.data;
 using App_Hexagonal.Infrastructura;
 using App_Hexagonal.Application;
-using App_Hexagonal.Infrastructura.identity.entity;
-using Microsoft.AspNetCore.Identity;
 using App_Hexagonal.Infrastructura.identity.config;
+using App_Hexagonal.Application.Common.security;
+using App_Hexagonal.Api.Middleware.tenant;
 
 StudentMappingConfig.Register();
 
@@ -32,8 +32,17 @@ builder.Services.AddInfrastructure();
 // Identity 
 builder.Services.AddIdentityConfiguration();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(Policies.TenantAdmin, policy =>
+        policy.RequireRole(Roles.Admin));
 
+    options.AddPolicy(Policies.TenantUser, policy =>
+        policy.RequireAuthenticatedUser());
+});
 var app = builder.Build();
+app.UseMiddleware<TenantContextMiddleware>();
+
 app.UseMiddleware<ErrorHandlingMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
