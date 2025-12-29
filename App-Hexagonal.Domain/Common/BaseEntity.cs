@@ -1,7 +1,7 @@
 
 namespace App_Hexagonal.Domain.Common
 {
-    public class BaseEntity<TId> : IAuditable
+    public class BaseEntity<TId> : IAuditable, IMultiTenantEntity
     {
         public TId Id { get; protected set; } = default!;
 
@@ -11,10 +11,13 @@ namespace App_Hexagonal.Domain.Common
 
         public DateTime? DeletedAt { get; protected set; }
 
+        public Guid TenantId { get; protected set; }
+
         protected BaseEntity() { }
-        protected BaseEntity(TId id)
+        protected BaseEntity(TId id, Guid tenantId)
         {
             Id = id;
+            TenantId = tenantId;
             MarkCreated();
         }
 

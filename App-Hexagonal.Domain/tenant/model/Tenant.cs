@@ -1,24 +1,22 @@
-using App_Hexagonal.Domain.Common;
-
 namespace App_Hexagonal.Domain.tenant.model
 {
-    public class Tenant : BaseEntity<Guid>
+    public class Tenant
     {
-        public string Name { get; private set; }
+        public Guid TenantId { get; private set; }
+        public string Name { get; private set; } = string.Empty;
         public bool IsActive { get; private set; }
 
         public Tenant() { }
-        public Tenant(Guid id, string name) : base(id)
+        public Tenant(Guid id, string name)
         {
+            this.TenantId = id;
             this.Name = name;
             this.IsActive = true;
-            MarkCreated();
-        }
 
+        }
         public void Deactive()
         {
             this.IsActive = false;
-            MarkUpdated();
         }
     }
 }

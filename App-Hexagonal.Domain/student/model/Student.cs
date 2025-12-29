@@ -14,7 +14,7 @@ namespace App_Hexagonal.Domain.student.model
 
         }
         public Student(string filename, string lastname, int age, string adress)
-         : base(Guid.NewGuid())
+         : base(Guid.NewGuid(), Guid.NewGuid())
         {
             FileName = filename;
             LastName = lastname;
