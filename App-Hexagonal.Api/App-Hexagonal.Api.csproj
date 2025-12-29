@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.17">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,6 +20,10 @@
   <ItemGroup>
     <ProjectReference Include="..\App-Hexagonal.Application\App-Hexagonal.Application.csproj" />
     <ProjectReference Include="..\App-Hexagonal.Infrastructura\App-Hexagonal.Infrastructura.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common/" />
   </ItemGroup>
 
 </Project>

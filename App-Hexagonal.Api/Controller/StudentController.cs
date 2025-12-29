@@ -1,9 +1,11 @@
 using App_Hexagonal.Api.student.Dtos.request;
 using App_Hexagonal.Api.student.mapping;
+using App_Hexagonal.Application.Common.security;
 using App_Hexagonal.Application.student.query;
 using App_Hexagonal.Application.student.useCase;
 using App_Hexagonal.Application.student.useCase.command;
 using App_Hexagonal.student.Dtos.response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App_Hexagonal.Api.Controller
@@ -51,7 +53,10 @@ namespace App_Hexagonal.Api.Controller
         }
 
         [HttpGet]
+        [Authorize(Policy = Policies.TenantUser)]
+        [Authorize(Policy = Policies.TenantAdmin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<StudentResponse>>> GetAll()
         {
             var result = await _getAllStudents.ExecuteAsync(new GetAllStudentsQuery());

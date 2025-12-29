@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.17" />
      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.17" />
      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.17" />
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="student/ports/output/" />
+    <Folder Include="user/" />
   </ItemGroup>
 
   <PropertyGroup>

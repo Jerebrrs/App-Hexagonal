@@ -1,16 +1,36 @@
 
 namespace App_Hexagonal.Domain.Common
 {
-    public class BaseEntity
+    public class BaseEntity<TId> : IAuditable
     {
-        public Guid Id { get; protected set; }
-        protected BaseEntity()
+        public TId Id { get; protected set; } = default!;
+
+        public DateTime? CreatedAt { get; protected set; }
+
+        public DateTime? UpdatedAt { get; protected set; }
+
+        public DateTime? DeletedAt { get; protected set; }
+
+        protected BaseEntity() { }
+        protected BaseEntity(TId id)
         {
-            this.Id = Guid.NewGuid();
+            Id = id;
+            MarkCreated();
         }
-        protected BaseEntity(Guid id)
+
+        public void MarkCreated()
         {
-            this.Id = id;
+            CreatedAt = DateTime.UtcNow;
+        }
+
+        public void MarkUpdated()
+        {
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void MarkDeleted()
+        {
+            DeletedAt = DateTime.UtcNow;
         }
     }
 }
