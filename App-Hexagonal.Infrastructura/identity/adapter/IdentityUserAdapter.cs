@@ -52,7 +52,7 @@ public class IdentityUserAdapter : IUserIdentityPort
         return user.Id;
     }
 
-    public async Task<UserAuthInfo> ValidateCredentialsAsync(string email, string password)
+    public async Task<UserAuthInfo?> ValidateCredentialsAsync(string email, string password)
     {
         var user = await _userManager.FindByEmailAsync(email);
         if (user is null) return null;

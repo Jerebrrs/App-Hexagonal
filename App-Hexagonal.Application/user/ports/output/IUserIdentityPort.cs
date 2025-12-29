@@ -12,7 +12,7 @@ namespace App_Hexagonal.Application.user.ports.output
          string roles
      );
 
-        Task<UserAuthInfo> ValidateCredentialsAsync(
+        Task<UserAuthInfo?> ValidateCredentialsAsync(
         string email,
         string password
     );
